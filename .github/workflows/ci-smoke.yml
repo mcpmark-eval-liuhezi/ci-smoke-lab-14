@@ -1,0 +1,19 @@
+name: CI Smoke Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write demo build artifact
+        run: |
+          echo "demo-build artifact generated at $(date -u +%Y-%m-%dT%H:%M:%SZ)" > demo-file.txt
+          echo "Content: short text file produced by the smoke-test workflow" >> demo-file.txt
+          cat demo-file.txt
+      - name: Upload demo-build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-build
+          path: demo-file.txt
